@@ -1,20 +1,20 @@
-import type { Metadata } from "next";
-import { Roboto, Roboto_Mono } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from 'next';
+import { Roboto, Roboto_Mono } from 'next/font/google';
+import './globals.css';
 
 const RobotoSans = Roboto({
-  variable: "--font-roboto-sans",
-  subsets: ["latin"],
+  variable: '--font-roboto-sans',
+  subsets: ['latin'],
 });
 
 const RobotoMono = Roboto_Mono({
-  variable: "--font-roboto-mono",
-  subsets: ["latin"],
+  variable: '--font-roboto-mono',
+  subsets: ['latin'],
 });
 
 export const metadata: Metadata = {
-  title: "CodeLeap Network",
-  description: "The CodeLeap coding test!",
+  title: 'CodeLeap Network',
+  description: 'The CodeLeap coding test!',
 };
 
 export default function RootLayout({
@@ -25,9 +25,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${RobotoSans.variable} ${RobotoMono.variable} antialiased`}
+        className={`${RobotoSans.variable} ${RobotoMono.variable} antialiased bg-background-2`}
       >
-        {children}
+        <div className="max-w-3xl mx-auto flex flex-col items-center justify-center min-h-screen">
+          {children}
+        </div>
       </body>
     </html>
   );

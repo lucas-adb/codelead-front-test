@@ -16,6 +16,8 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
+import userStore from '@/stores/user-store';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
   username: z
@@ -32,12 +34,16 @@ function LoginForm() {
     },
   });
 
+  const { setUsername } = userStore();
   const username = form.watch('username');
 
+  const router = useRouter();
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+    // send request; save username to local storage; redirect to feed
     console.log(values);
+    setUsername(values.username);
+    router.push('/feed');
   }
 
   return (
