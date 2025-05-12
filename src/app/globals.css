@@ -6,8 +6,10 @@
 @theme inline {
   --color-background-2: var(--background-2);
   --color-codeleap-blue: var(--codeleap-blue);
-  --color-codeleap-border: var(--codeleap-border);
   --color-codeleap-gray: var(--codeleap-gray);
+  --color-codeleap-gray-2: var(--codeleap-gray-2);
+  --color-codeleap-green: var(--codeleap-green);
+  --color-codeleap-red: var(--codeleap-red);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-roboto-sans);
@@ -57,8 +59,10 @@
 :root {
   --background-2: #ddd;
   --codeleap-blue: #7695ec;
-  --codeleap-border: #999;
   --codeleap-gray: #777;
+  --codeleap-gray-2: #999;
+  --codeleap-green: #47b960;
+  --codeleap-red: #ff5151;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -125,6 +129,19 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+}
+
+
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: auto;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
 }
 
 @layer base {

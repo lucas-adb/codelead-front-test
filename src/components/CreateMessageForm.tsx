@@ -49,7 +49,7 @@ function CreateMessageForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 rounded-2xl bg-background p-6 flex flex-col items-start justify-start border border-codeleap-border mb-6"
+        className="space-y-8 rounded-2xl bg-background p-6 flex flex-col items-start justify-start border border-codeleap-gray-2 mb-6"
       >
         <FormDescription className="text-2xl text-black font-bold mb-4">
           What’s on your mind?

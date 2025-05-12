@@ -4,31 +4,8 @@ import userStore from '@/stores/user-store';
 import { MessageCardProps } from '@/types/messages';
 import { formatDistanceToNow } from 'date-fns';
 import { enUS } from 'date-fns/locale';
-import trash from '@/assets/trash.svg';
-import edit from '@/assets/edit.svg';
-import Image from 'next/image';
-import { Button } from './ui/button';
-
-function ButtonIcon({
-  src,
-  alt,
-  onClick,
-}: {
-  src: string;
-  alt: string;
-  onClick: () => void;
-}) {
-  return (
-    <Button
-      variant="outline"
-      size="icon"
-      className="bg-transparent hover:bg-transparent hover:cursor-pointer hover:scale-105 border-none p-0 max-w-6 relative"
-      onClick={onClick}
-    >
-      <Image src={src} alt={alt} fill />
-    </Button>
-  );
-}
+import DeleteMessageDialog from './DeleteMessageDialog';
+import EditMessageDialog from './EditMessageDialog';
 
 function MessageCard({ message }: MessageCardProps) {
   const { username } = userStore();
@@ -41,21 +18,13 @@ function MessageCard({ message }: MessageCardProps) {
   });
 
   return (
-    <article className="border rounded-2xl border-codeleap-border overflow-hidden min-h-80">
+    <article className="border rounded-2xl border-codeleap-gray-2 overflow-hidden min-h-80">
       <header className="bg-codeleap-blue h-20 px-6 flex items-center justify-between">
         <h1 className="text-background font-bold text-2xl">{message.title}</h1>
         {isMessageFromUser && (
           <div className="flex gap-2">
-            <ButtonIcon
-              src={trash.src}
-              alt="trash-icon"
-              onClick={() => console.log('delete message')}
-            />
-            <ButtonIcon
-              src={edit.src}
-              alt="edit-icon"
-              onClick={() => console.log('edit message')}
-            />
+            <DeleteMessageDialog />
+            <EditMessageDialog />
           </div>
         )}
       </header>
