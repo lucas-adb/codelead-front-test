@@ -1,32 +1,25 @@
 {
   "messages": [
     {
-      "id": "1",
+      "id": 1,
       "username": "Joe",
       "created_datetime": "2025-01-01T12:00:00Z",
       "title": "Hello World",
       "content": "This is a test message."
     },
     {
-      "id": "2",
+      "id": 2,
       "username": "Jane Smith",
       "created_datetime": "2023-10-02T12:00:00Z",
       "title": "Another Message",
       "content": "This is another test message."
     },
     {
-      "id": "3",
+      "id": 3,
       "username": "Alice Johnson",
       "created_datetime": "2022-10-03T16:45:00Z",
       "title": "Third Message",
       "content": "This is yet another test message."
-    },
-    {
-      "id": "43bb",
-      "username": "Joe",
-      "title": "Nova Mensagem",
-      "content": "teste",
-      "created_datetime": "2025-05-13T19:02:20.671Z"
     }
   ]
 }
