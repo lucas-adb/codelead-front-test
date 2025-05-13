@@ -1,4 +1,4 @@
-import { api } from './api';
+import { supabase } from '@/lib/supabase';
 
 export interface Message {
   id: number;
@@ -9,27 +9,59 @@ export interface Message {
 }
 
 export const messagesService = {
-  getAll: () => api<Message[]>('/messages'),
+  getAll: async () => {
+    const { data, error } = await supabase
+      .from('messages')
+      .select('*')
+      .order('created_datetime', { ascending: false });
+    
+    if (error) throw error;
+    return data as Message[];
+  },
   
-  getById: (id: number) => api<Message>(`/messages/${id}`),
+  getById: async (id: number) => {
+    const { data, error } = await supabase
+      .from('messages')
+      .select('*')
+      .eq('id', id)
+      .single();
+    
+    if (error) throw error;
+    return data as Message;
+  },
   
-  create: (data: Omit<Message, 'id' | 'created_datetime'>) => 
-    api<Message>('/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ 
+  create: async (data: Omit<Message, 'id' | 'created_datetime'>) => {
+    const { data: newMessage, error } = await supabase
+      .from('messages')
+      .insert([{ 
         ...data, 
         created_datetime: new Date().toISOString() 
-      }),
-    }),
+      }])
+      .select()
+      .single();
     
-  update: (id: number, data: Partial<Message>) =>
-    api<Message>(`/messages/${id}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    }),
+    if (error) throw error;
+    return newMessage as Message;
+  },
     
-  delete: (id: number) =>
-    api<void>(`/messages/${id}`, { method: 'DELETE' }),
+  update: async (id: number, data: Partial<Message>) => {
+    const { data: updatedMessage, error } = await supabase
+      .from('messages')
+      .update(data)
+      .eq('id', id)
+      .select()
+      .single();
+    
+    if (error) throw error;
+    return updatedMessage as Message;
+  },
+    
+  delete: async (id: number) => {
+    const { error } = await supabase
+      .from('messages')
+      .delete()
+      .eq('id', id);
+    
+    if (error) throw error;
+  },
 };
