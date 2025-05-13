@@ -1,4 +1,18 @@
+'use client';
+
+import { redirect } from 'next/navigation';
+import { useEffect } from 'react';
+import userStore from '@/stores/user-store';
+
 function FeedLayout({ children }: { children: React.ReactNode }) {
+  const { user } = userStore();
+
+  useEffect(() => {
+    if (!user) {
+      redirect('/');
+    }
+  }, [user]);
+
   return (
     <div className="max-w-3xl w-full mx-auto min-h-screen flex flex-col">
       <header className="bg-codeleap-blue h-20 px-6 flex items-center justify-between">

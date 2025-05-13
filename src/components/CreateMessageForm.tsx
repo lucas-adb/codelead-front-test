@@ -33,7 +33,7 @@ const formSchema = z.object({
 
 function CreateMessageForm() {
   const { createMessage } = useMessages();
-  const { username } = userStore();
+  const { user } = userStore();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -49,14 +49,14 @@ function CreateMessageForm() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
 
-    if (!username) {
-      console.error('Username is not set');
+    if (!user) {
+      console.error('User is not logged in');
       return;
     }
 
     try {
       createMessage({
-        username,
+        username: user.user_metadata.username || user.email?.split('@')[0] || 'anonymous',
         ...values,
       });
     } catch (error) {

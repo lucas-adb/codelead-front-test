@@ -8,9 +8,10 @@ import DeleteMessageDialog from './DeleteMessageDialog';
 import EditMessageDialog from './EditMessageDialog';
 
 function MessageCard({ message }: MessageCardProps) {
-  const { username } = userStore();
+  const { user } = userStore();
 
-  const isMessageFromUser = message.username === username;
+  const currentUsername = user?.user_metadata.username || user?.email?.split('@')[0] || 'anonymous';
+  const isMessageFromUser = message.username === currentUsername;
 
   const timeAgo = formatDistanceToNow(new Date(message.created_datetime), {
     addSuffix: true,

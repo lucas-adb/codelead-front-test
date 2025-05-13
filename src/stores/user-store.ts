@@ -1,19 +1,20 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
+import { User } from '@supabase/supabase-js';
 
 type UserStore = {
-  username: string | null;
-  setUsername: (username: string) => void;
+  user: User | null;
+  setUser: (user: User | null) => void;
 }
 
 const userStore = create(
   persist<UserStore>(
     (set) => ({
-      username: null,
-      setUsername: (username) => set({ username }),
+      user: null,
+      setUser: (user) => set({ user }),
     }),
     {
-      name: 'username-codeleap',
+      name: 'user-codeleap',
       storage: createJSONStorage(() => localStorage),
     }
   )
