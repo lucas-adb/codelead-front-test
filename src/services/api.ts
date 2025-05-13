@@ -1,4 +1,6 @@
-export const API_BASE_URL = 'http://localhost:3333';
+export const API_BASE_URL = process.env.NODE_ENV === 'production'
+  ? 'https://my-json-server.typicode.com/lucas-adb/codeleap-front-test'
+  : 'http://localhost:3333';
 
 export async function api<T>(endpoint: string, config?: RequestInit): Promise<T> {
   const response = await fetch(`${API_BASE_URL}${endpoint}`, config);
