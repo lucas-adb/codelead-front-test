@@ -1,5 +1,5 @@
 export const API_BASE_URL = process.env.NODE_ENV === 'production'
-  ? 'https://my-json-server.typicode.com/lucas-adb/codeleap-front-test'
+  ? 'https://my-json-server.typicode.com/lucas-adb/codelead-front-test'
   : 'http://localhost:3333';
 
 export async function api<T>(endpoint: string, config?: RequestInit): Promise<T> {
