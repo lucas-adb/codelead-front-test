@@ -24,15 +24,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className='h-full'>
+    <html lang="en" className="h-full">
       <body
         className={`${RobotoSans.variable} ${RobotoMono.variable} antialiased bg-background-2 h-full`}
       >
-        <Providers>
-          {/* <div className="max-w-3xl mx-auto flex flex-col items-center justify-center min-h-screen"> */}
-            {children}
-          {/* </div> */}
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
