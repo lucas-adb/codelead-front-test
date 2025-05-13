@@ -7,6 +7,14 @@ export function useMessages() {
   const query = useQuery({
     queryKey: ['messages'],
     queryFn: messagesService.getAll,
+    select: (messages) => {
+      return [...messages].sort((a, b) => {
+        return (
+          new Date(b.created_datetime).getTime() -
+          new Date(a.created_datetime).getTime()
+        );
+      });
+    },
   });
 
   const createMutation = useMutation({
@@ -17,7 +25,7 @@ export function useMessages() {
   });
 
   const updateMutation = useMutation({
-    mutationFn: ({ id, data }: { id: number; data: Partial<Message> }) => 
+    mutationFn: ({ id, data }: { id: number; data: Partial<Message> }) =>
       messagesService.update(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['messages'] });
