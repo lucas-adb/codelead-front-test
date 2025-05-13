@@ -1,21 +1,34 @@
-import CreateMessageForm from '@/components/CreateMessageForm';
+'use client';
+
 import MessageCard from '@/components/MessageCard';
-import { messagesMock } from '@/mocks/messages-mock';
+import { useMessages } from '@/hooks/queries/useMessages';
+import CreateMessageForm from '@/components/CreateMessageForm';
+import { Loader2 } from 'lucide-react';
 
 export default function Feed() {
-  return (
-    <main className='w-full'>
-      <header className="bg-codeleap-blue h-20 px-6 flex items-center justify-between">
-        <h1 className="text-background font-bold text-2xl">CodeLeap Network</h1>
-      </header>
-      <div className="bg-background flex-1 p-6">
-        <CreateMessageForm />
-        <div className='flex flex-col gap-4 mt-6'>
-          {messagesMock.map((message) => (
-            <MessageCard key={message.id} message={message} />
-          ))}
-        </div>
+  const { messages, isLoading, error } = useMessages();
+
+
+  if (isLoading) {
+    return (
+      <div className='flex-1 h-full flex items-center justify-center'>
+        <Loader2 className="animate-spin" />
       </div>
-    </main>
+    );
+  }
+
+  if (error) {
+    return <p>Error loading messages</p>;
+  }
+
+  return (
+    <>
+      <CreateMessageForm />
+      <div className="flex flex-col gap-4 mt-6">
+        {messages.map((message) => (
+          <MessageCard key={message.id} message={message} />
+        ))}
+      </div>
+    </>
   );
 }

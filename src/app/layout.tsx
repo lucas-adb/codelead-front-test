@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Roboto, Roboto_Mono } from 'next/font/google';
 import './globals.css';
+import { Providers } from '@/components/providers';
 
 const RobotoSans = Roboto({
   variable: '--font-roboto-sans',
@@ -23,13 +24,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className='h-full'>
       <body
-        className={`${RobotoSans.variable} ${RobotoMono.variable} antialiased bg-background-2`}
+        className={`${RobotoSans.variable} ${RobotoMono.variable} antialiased bg-background-2 h-full`}
       >
-        <div className="max-w-3xl mx-auto flex flex-col items-center justify-center min-h-screen">
-          {children}
-        </div>
+        <Providers>
+          {/* <div className="max-w-3xl mx-auto flex flex-col items-center justify-center min-h-screen"> */}
+            {children}
+          {/* </div> */}
+        </Providers>
       </body>
     </html>
   );
