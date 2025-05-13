@@ -23,8 +23,11 @@ function MessageCard({ message }: MessageCardProps) {
         <h1 className="text-background font-bold text-2xl">{message.title}</h1>
         {isMessageFromUser && (
           <div className="flex gap-2">
-            <DeleteMessageDialog />
-            <EditMessageDialog />
+            <DeleteMessageDialog messageId={message.id} />
+            <EditMessageDialog
+              messageId={message.id}
+              defaultValues={{ title: message.title, content: message.content }}
+            />
           </div>
         )}
       </header>

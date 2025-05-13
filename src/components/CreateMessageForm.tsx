@@ -17,6 +17,8 @@ import {
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import { Textarea } from './ui/textarea';
+import { useMessages } from '@/hooks/queries/useMessages';
+import userStore from '@/stores/user-store';
 
 const formSchema = z.object({
   title: z
@@ -30,6 +32,9 @@ const formSchema = z.object({
 });
 
 function CreateMessageForm() {
+  const { createMessage } = useMessages();
+  const { username } = userStore();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -43,6 +48,22 @@ function CreateMessageForm() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
+
+    if (!username) {
+      console.error('Username is not set');
+      return;
+    }
+
+    try {
+      createMessage({
+        username,
+        ...values,
+      });
+    } catch (error) {
+      console.error('Error creating message:', error);
+    } finally {
+      form.reset();
+    }
   }
 
   return (

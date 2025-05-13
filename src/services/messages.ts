@@ -25,7 +25,7 @@ export const messagesService = {
     
   update: (id: number, data: Partial<Message>) =>
     api<Message>(`/messages/${id}`, {
-      method: 'PUT',
+      method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     }),

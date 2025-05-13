@@ -31,6 +31,7 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { cn } from '@/lib/utils';
+import { useMessages } from '@/hooks/queries/useMessages';
 
 const formSchema = z.object({
   title: z
@@ -43,15 +44,16 @@ const formSchema = z.object({
     .max(500, { message: 'Content must be at most 500 characters long' }),
 });
 
-function EditMessageDialog() {
+function EditMessageDialog({ messageId, defaultValues }: { messageId: number, defaultValues: { title: string, content: string } }) {
+  const { updateMessage } = useMessages();
   const [open, setOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: '',
-      content: '',
+      title: defaultValues.title || '',
+      content: defaultValues.content || '',
     },
   });
 
@@ -66,8 +68,17 @@ function EditMessageDialog() {
     setIsEditing(true);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      // await new Promise((resolve) => setTimeout(resolve, 2000));
       console.log('Edited values:', values);
+
+      updateMessage({
+        id: messageId,
+        data: {
+          title: values.title,
+          content: values.content,
+        },
+      });
+
       setOpen(false);
     } catch (error) {
       console.error('Error editing message:', error);
@@ -124,7 +135,9 @@ function EditMessageDialog() {
               )}
             />
             <AlertDialogFooter>
-              <AlertDialogCancel disabled={isEditing} onClick={clearForm}>Cancel</AlertDialogCancel>
+              <AlertDialogCancel disabled={isEditing} onClick={clearForm}>
+                Cancel
+              </AlertDialogCancel>
               <Button
                 type="submit"
                 className={cn(

@@ -13,8 +13,10 @@ import trash from '@/assets/trash.svg';
 import ButtonIcon from './ButtonIcon';
 import { useState } from 'react';
 import { Loader2 } from 'lucide-react';
+import { useMessages } from '@/hooks/queries/useMessages';
 
-function DeleteMessageDialog() {
+function DeleteMessageDialog({ messageId }: { messageId: number }) {
+  const { deleteMessage } = useMessages();
   const [open, setOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -23,7 +25,7 @@ function DeleteMessageDialog() {
     setIsDeleting(true);
 
     try {
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      deleteMessage(messageId)
     } catch (error) {
       console.error('Error deleting message:', error);
     } finally {
